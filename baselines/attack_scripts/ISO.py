@@ -432,7 +432,7 @@ if __name__ == '__main__':
     all_adv_pc = np.concatenate(all_adv_pc, axis=0)
     all_real_lbl = np.array(all_real_lbl)  # [num_data]
     all_target_lbl = np.array(all_target_lbl)
-    save_path = 'baselines/attack_scripts/attack/results/{}_{}/ISO'. \
+    save_path = 'results/{}_{}/ISO'. \
         format("mn40", "1024")
     isExists = os.path.exists(os.path.join(save_path, 'npz'))
     if not isExists:

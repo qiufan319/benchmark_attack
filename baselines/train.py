@@ -149,8 +149,8 @@ if __name__ == "__main__":
     # Training settings
     parser = argparse.ArgumentParser(description='Point Cloud Recognition')
     parser.add_argument('--data_root', type=str,
-                        default='baselines/data/MN40_random_2048.npz')
-    parser.add_argument('--model', type=str, default='pointnet2',
+                        default='data/MN40_random_2048.npz')
+    parser.add_argument('--model', type=str, default='curvenet',
                         choices=['pointnet', 'pointnet2',
                                  'dgcnn', 'pointconv','curvenet','pct','simple_view','pointcnn'],
                         help='Model to use, [pointnet, pointnet++, dgcnn, pointconv,curvenet,pct,simple_view,pointcnn]')

@@ -7,6 +7,8 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import os
 import sys
+root_path=os.path.abspath(os.path.join(os.getcwd(), "../"))
+sys.path.append(root_path)
 root_path=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_path)
 from dataset import ModelNet40Attack, ModelNet40
@@ -90,14 +92,14 @@ if __name__ == "__main__":
     # Training settings
     parser = argparse.ArgumentParser(description='Point Cloud Recognition')
     parser.add_argument('--data_root', type=str,
-                        default=r'/home/jqf/桌面/benchmark_pc_attack1-master/baselines/attack_scripts/baselines/attack_scripts/attack/results/mn40_1024/ISO/npz/ISO.npz')
+                        default=r'/home/jqf/桌面/benchmark_pc_attack1-master/baselines/attack_scripts/results/mn40_1024/L3A/sor/sor_de.npz')
     parser.add_argument('--mode', type=str, default='normal',
                         choices=['normal', 'target'],
                         help='Testing mode')
-    parser.add_argument('--model', type=str, default='dgcnn',
+    parser.add_argument('--model', type=str, default='pointnet2',
                         choices=['pointnet', 'pointnet2',
                                  'dgcnn', 'pointconv', 'curvenet', 'pct', 'simple_view', 'pointcnn'],
-                        help='Model to use, [pointnet, pointnet++, dgcnn, pointconv,curvenet,pct,simple_view,pointcnn]')
+                        help='Model to use, [pointnet, pointnet++, dgcnn, pointconv,curvenet,pct,simple_view]')
     parser.add_argument('--dataset', type=str, default='mn40', metavar='N',
                         choices=['mn40', 'remesh_mn40',
                                  'opt_mn40', 'conv_opt_mn40'])
@@ -192,6 +194,10 @@ if __name__ == "__main__":
         model_tmp = importlib.import_module('model.SIA.'+args.model)
         model = model_tmp.get_model()
         model=model.cuda()
+    elif args.model.lower()=='pointnet_cls':
+        model_tmp = importlib.import_module('model.SIA.'+args.model)
+        model = model_tmp.get_model()
+        model=model.cuda()
     else:
         print('Model not recognized')
         exit(-1)
@@ -213,7 +219,7 @@ if __name__ == "__main__":
                               normalize=args.normalize_pc, partition='test',
                               augmentation=False)
     test_loader = DataLoader(test_set, batch_size=args.batch_size,
-                             shuffle=False, num_workers=8,
+                             shuffle=False, num_workers=0,
                              pin_memory=True, drop_last=False)
 
     # test
