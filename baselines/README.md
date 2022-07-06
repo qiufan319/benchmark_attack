@@ -54,8 +54,6 @@ The pre-trained weights we provided using this command achieve slightly lower ac
 
 #### Hybrid Training
 
-The victim models trained purely on clean data degrade the accuracy by up to 5% on the IF-Defense defended data, which is unacceptable for a defense. So we add the defense data as a simple data augmentation to achieve negligible degradation:
-
 ```shell
 python hybrid_train.py --model={$MODEL} --num_points=1024 --dataset={$DATASET} --def_data=path/to/defense_data.npz
 ```
